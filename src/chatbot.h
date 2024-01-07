@@ -12,12 +12,12 @@ class ChatLogic;  // forward declaration
 class ChatBot {
  private:
   // data handles (owned)
-  wxBitmap *_image;  // avatar image
+  wxBitmap* _image;  // avatar image
 
   // data handles (not owned)
-  GraphNode *_currentNode;
-  GraphNode *_rootNode;
-  ChatLogic *_chatLogic;
+  GraphNode* _currentNode;
+  GraphNode* _rootNode;
+  ChatLogic* _chatLogic;
 
   // proprietary functions
   int ComputeLevenshteinDistance(std::string s1, std::string s2);
@@ -35,20 +35,20 @@ class ChatBot {
   //// EOF STUDENT CODE
 
   // getters / setters
-  void SetCurrentNode(GraphNode *node);
-  void SetRootNode(GraphNode *rootNode) {
+  void SetCurrentNode(GraphNode* node);
+  void SetRootNode(GraphNode* rootNode) {
     std::cout << "DEBUG: "
               << "ChatBot::SetRootNode(GraphNode *rootNode)" << std::endl;
     _rootNode = rootNode;
   }
-  void SetChatLogicHandle(ChatLogic *chatLogic) {
+  void SetChatLogicHandle(ChatLogic* chatLogic) {
     std::cout << "DEBUG: "
               << "ChatBot::SetChatLogicHandle(ChatLogic *chatLogic)"
               << std::endl;
     _chatLogic = chatLogic;
   }
-  ChatLogic *GetChatLogicHandle() { return _chatLogic; }
-  wxBitmap *GetImageHandle() { return _image; }
+  ChatLogic* GetChatLogicHandle() { return _chatLogic; }
+  wxBitmap* GetImageHandle() { return _image; }
 
   // communication
   void ReceiveMessageFromUser(std::string message);

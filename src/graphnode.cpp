@@ -28,13 +28,13 @@ void GraphNode::AddToken(std::string token) {
   _answers.push_back(token);
 }
 
-void GraphNode::AddEdgeToParentNode(GraphEdge *edge) {
+void GraphNode::AddEdgeToParentNode(GraphEdge* edge) {
   std::cout << "DEBUG: "
             << "GraphNode::AddEdgeToParentNode(GraphEdge *edge)" << std::endl;
   _parentEdges.push_back(edge);
 }
 
-void GraphNode::AddEdgeToChildNode(GraphEdge *edge) {
+void GraphNode::AddEdgeToChildNode(GraphEdge* edge) {
   std::cout << "DEBUG: "
             << "GraphNode::AddEdgeToChildNode(GraphEdge *edge)" << std::endl;
   _childEdges.push_back(edge);
@@ -42,14 +42,14 @@ void GraphNode::AddEdgeToChildNode(GraphEdge *edge) {
 
 //// STUDENT CODE
 ////
-void GraphNode::MoveChatbotHere(ChatBot *chatbot) {
+void GraphNode::MoveChatbotHere(ChatBot* chatbot) {
   std::cout << "DEBUG: "
             << "GraphNode::MoveChatbotHere(ChatBot *chatbot)" << std::endl;
   _chatBot = chatbot;
   _chatBot->SetCurrentNode(this);
 }
 
-void GraphNode::MoveChatbotToNewNode(GraphNode *newNode) {
+void GraphNode::MoveChatbotToNewNode(GraphNode* newNode) {
   std::cout << "DEBUG: "
             << "GraphNode::MoveChatbotToNewNode(GraphNode *newNode)"
             << std::endl;
@@ -59,7 +59,7 @@ void GraphNode::MoveChatbotToNewNode(GraphNode *newNode) {
 ////
 //// EOF STUDENT CODE
 
-GraphEdge *GraphNode::GetChildEdgeAtIndex(int index) {
+GraphEdge* GraphNode::GetChildEdgeAtIndex(int index) {
   std::cout << "DEBUG: "
             << "GraphNode::GetChildEdgeAtIndex(int index)" << std::endl;
   //// STUDENT CODE

@@ -10,13 +10,13 @@ GraphEdge::GraphEdge(int id) {
   _id = id;
 }
 
-void GraphEdge::SetChildNode(GraphNode *childNode) {
+void GraphEdge::SetChildNode(GraphNode* childNode) {
   std::cout << "DEBUG: "
             << "GraphEdge::SetChildNode(GraphNode *childNode)" << std::endl;
   _childNode = childNode;
 }
 
-void GraphEdge::SetParentNode(GraphNode *parentNode) {
+void GraphEdge::SetParentNode(GraphNode* parentNode) {
   std::cout << "DEBUG: "
             << "GraphEdge::SetParentNode(GraphNode *parentNode)" << std::endl;
   _parentNode = parentNode;
