@@ -4,8 +4,10 @@
 #include <fstream>
 #include <iostream>
 #include <iterator>
+#include <memory>  // std::make_unique
 #include <sstream>
 #include <tuple>
+#include <utility>  // std::move
 #include <vector>
 
 #include "chatbot.h"
@@ -44,9 +46,9 @@ ChatLogic::~ChatLogic() {
   // }
 
   // delete all edges
-  for (auto it = std::begin(_edges); it != std::end(_edges); ++it) {
-    delete *it;
-  }
+  // for (auto it = std::begin(_edges); it != std::end(_edges); ++it) {
+  //   delete *it;
+  // }
 
   ////
   //// EOF STUDENT CODE
@@ -192,17 +194,17 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename) {
                     return node->GetID() == std::stoi(childToken->second);
                   }
               );
-              GraphEdge* edge = new GraphEdge(id);
+              auto edge = std::make_unique<GraphEdge>(id);
               edge->SetChildNode(childNode->get());
               edge->SetParentNode(parentNode->get());
-              _edges.push_back(edge);
+              // _edges.push_back(edge);
 
               // find all keywords for current node
               AddAllTokensToElement("KEYWORD", tokens, *edge);
 
               // store reference in child node and parent node
-              (*childNode)->AddEdgeToParentNode(edge);
-              (*parentNode)->AddEdgeToChildNode(edge);
+              (*childNode)->AddEdgeToParentNode(edge.get());
+              (*parentNode)->AddEdgeToChildNode(std::move(edge));
             }
 
             ////
