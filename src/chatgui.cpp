@@ -5,6 +5,7 @@
 #include <wx/image.h>
 
 #include <iostream>
+#include <memory>  // std::make_unique
 #include <string>
 
 #include "chatbot.h"
@@ -24,19 +25,19 @@ bool ChatBotApp::OnInit() {
   std::cout << "DEBUG: "
             << "ChatBotApp::OnInit()" << std::endl;
   // create window with name and show it
-  ChatBotFrame *chatBotFrame = new ChatBotFrame(wxT("Udacity ChatBot"));
+  ChatBotFrame* chatBotFrame = new ChatBotFrame(wxT("Udacity ChatBot"));
   chatBotFrame->Show(true);
 
   return true;
 }
 
 // wxWidgets FRAME
-ChatBotFrame::ChatBotFrame(const wxString &title)
+ChatBotFrame::ChatBotFrame(const wxString& title)
     : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(width, height)) {
   std::cout << "DEBUG: "
             << "ChatBotFrame::ChatBotFrame(const wxString &title)" << std::endl;
   // create panel with background image
-  ChatBotFrameImagePanel *ctrlPanel = new ChatBotFrameImagePanel(this);
+  ChatBotFrameImagePanel* ctrlPanel = new ChatBotFrameImagePanel(this);
 
   // create controls and assign them to control panel
   _panelDialog = new ChatBotPanelDialog(ctrlPanel, wxID_ANY);
@@ -52,7 +53,7 @@ ChatBotFrame::ChatBotFrame(const wxString &title)
   );
 
   // create vertical sizer for panel alignment and add panels
-  wxBoxSizer *vertBoxSizer = new wxBoxSizer(wxVERTICAL);
+  wxBoxSizer* vertBoxSizer = new wxBoxSizer(wxVERTICAL);
   vertBoxSizer->AddSpacer(90);
   vertBoxSizer->Add(_panelDialog, 6, wxEXPAND | wxALL, 0);
   vertBoxSizer->Add(_userTextCtrl, 1, wxEXPAND | wxALL, 5);
@@ -62,7 +63,7 @@ ChatBotFrame::ChatBotFrame(const wxString &title)
   this->Centre();
 }
 
-void ChatBotFrame::OnEnter(wxCommandEvent &WXUNUSED(event)) {
+void ChatBotFrame::OnEnter(wxCommandEvent& WXUNUSED(event)) {
   std::cout << "DEBUG: "
             << "ChatBotFrame::OnEnter(wxCommandEvent &WXUNUSED(event))"
             << std::endl;
@@ -85,14 +86,14 @@ BEGIN_EVENT_TABLE(ChatBotFrameImagePanel, wxPanel)
 EVT_PAINT(ChatBotFrameImagePanel::paintEvent)  // catch paint events
 END_EVENT_TABLE()
 
-ChatBotFrameImagePanel::ChatBotFrameImagePanel(wxFrame *parent)
+ChatBotFrameImagePanel::ChatBotFrameImagePanel(wxFrame* parent)
     : wxPanel(parent) {
   std::cout << "DEBUG: "
             << "ChatBotFrameImagePanel::ChatBotFrameImagePanel(wxFrame *parent)"
             << std::endl;
 }
 
-void ChatBotFrameImagePanel::paintEvent(wxPaintEvent &evt) {
+void ChatBotFrameImagePanel::paintEvent(wxPaintEvent& evt) {
   wxPaintDC dc(this);
   render(dc);
 }
@@ -102,7 +103,7 @@ void ChatBotFrameImagePanel::paintNow() {
   render(dc);
 }
 
-void ChatBotFrameImagePanel::render(wxDC &dc) {
+void ChatBotFrameImagePanel::render(wxDC& dc) {
   // load backgroud image from file
   wxString imgFile = imgBasePath + "sf_bridge.jpg";
   wxImage image;
@@ -121,7 +122,7 @@ BEGIN_EVENT_TABLE(ChatBotPanelDialog, wxPanel)
 EVT_PAINT(ChatBotPanelDialog::paintEvent)  // catch paint events
 END_EVENT_TABLE()
 
-ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
+ChatBotPanelDialog::ChatBotPanelDialog(wxWindow* parent, wxWindowID id)
     : wxScrolledWindow(parent, id) {
   std::cout << "DEBUG: "
             << "ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, "
@@ -139,7 +140,8 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, wxWindowID id)
   ////
 
   // create chat logic instance
-  _chatLogic = new ChatLogic();
+  // _chatLogic = new ChatLogic();
+  _chatLogic = std::make_unique<ChatLogic>();
 
   // pass pointer to chatbot dialog so answers can be displayed in GUI
   _chatLogic->SetPanelDialogHandle(this);
@@ -157,7 +159,7 @@ ChatBotPanelDialog::~ChatBotPanelDialog() {
   //// STUDENT CODE
   ////
 
-  delete _chatLogic;
+  // delete _chatLogic;
 
   ////
   //// EOF STUDENT CODE
@@ -169,7 +171,7 @@ void ChatBotPanelDialog::AddDialogItem(wxString text, bool isFromUser) {
       << "ChatBotPanelDialog::AddDialogItem(wxString text, bool isFromUser)"
       << std::endl;
   // add a single dialog element to the sizer
-  ChatBotPanelDialogItem *item =
+  ChatBotPanelDialogItem* item =
       new ChatBotPanelDialogItem(this, text, isFromUser);
   _dialogSizer->Add(
       item, 0, wxALL | (isFromUser == true ? wxALIGN_LEFT : wxALIGN_RIGHT), 8
@@ -197,7 +199,7 @@ void ChatBotPanelDialog::PrintChatbotResponse(std::string response) {
   AddDialogItem(botText, false);
 }
 
-void ChatBotPanelDialog::paintEvent(wxPaintEvent &evt) {
+void ChatBotPanelDialog::paintEvent(wxPaintEvent& evt) {
   wxPaintDC dc(this);
   render(dc);
 }
@@ -207,7 +209,7 @@ void ChatBotPanelDialog::paintNow() {
   render(dc);
 }
 
-void ChatBotPanelDialog::render(wxDC &dc) {
+void ChatBotPanelDialog::render(wxDC& dc) {
   wxImage image;
   image.LoadFile(imgBasePath + "sf_bridge_inner.jpg");
 
@@ -220,12 +222,12 @@ void ChatBotPanelDialog::render(wxDC &dc) {
 }
 
 ChatBotPanelDialogItem::ChatBotPanelDialogItem(
-    wxPanel *parent, wxString text, bool isFromUser
+    wxPanel* parent, wxString text, bool isFromUser
 )
     : wxPanel(parent, -1, wxPoint(-1, -1), wxSize(-1, -1), wxBORDER_NONE) {
   // retrieve image from chatbot
-  wxBitmap *bitmap = isFromUser == true ? nullptr
-                                        : ((ChatBotPanelDialog *)parent)
+  wxBitmap* bitmap = isFromUser == true ? nullptr
+                                        : ((ChatBotPanelDialog*)parent)
                                               ->GetChatLogicHandle()
                                               ->GetImageFromChatbot();
 
@@ -245,7 +247,7 @@ ChatBotPanelDialogItem::ChatBotPanelDialogItem(
   );
 
   // create sizer and add elements
-  wxBoxSizer *horzBoxSizer = new wxBoxSizer(wxHORIZONTAL);
+  wxBoxSizer* horzBoxSizer = new wxBoxSizer(wxHORIZONTAL);
   horzBoxSizer->Add(_chatBotTxt, 8, wxEXPAND | wxALL, 1);
   horzBoxSizer->Add(_chatBotImg, 2, wxEXPAND | wxALL, 1);
   this->SetSizer(horzBoxSizer);
