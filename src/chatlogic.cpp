@@ -39,9 +39,9 @@ ChatLogic::~ChatLogic() {
   delete _chatBot;
 
   // delete all nodes
-  for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it) {
-    delete *it;
-  }
+  // for (auto it = std::begin(_nodes); it != std::end(_nodes); ++it) {
+  //   delete *it;
+  // }
 
   // delete all edges
   for (auto it = std::begin(_edges); it != std::end(_edges); ++it) {
@@ -67,7 +67,6 @@ void ChatLogic::AddAllTokensToElement(
         token, tokens.end(),
         [&tokenID](const std::pair<std::string, std::string>& pair) {
           return pair.first == tokenID;
-          ;
         }
     );
     if (token != tokens.end()) {
@@ -144,12 +143,12 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename) {
             // check if node with this ID exists already
             auto newNode = std::find_if(
                 _nodes.begin(), _nodes.end(),
-                [&id](GraphNode* node) { return node->GetID() == id; }
+                [&id](const auto& node) { return node->GetID() == id; }
             );
 
             // create new element if ID does not yet exist
             if (newNode == _nodes.end()) {
-              _nodes.emplace_back(new GraphNode(id));
+              _nodes.emplace_back(std::make_unique<GraphNode>(id));
               newNode = _nodes.end() - 1;  // get iterator to last element
 
               // add all answers to current node
@@ -183,21 +182,19 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename) {
               // get iterator on incoming and outgoing node via ID search
               auto parentNode = std::find_if(
                   _nodes.begin(), _nodes.end(),
-                  [&parentToken](GraphNode* node) {
+                  [&parentToken](const auto& node) {
                     return node->GetID() == std::stoi(parentToken->second);
                   }
               );
               auto childNode = std::find_if(
                   _nodes.begin(), _nodes.end(),
-                  [&childToken](GraphNode* node) {
+                  [&childToken](const auto& node) {
                     return node->GetID() == std::stoi(childToken->second);
                   }
               );
-
-              // create new edge
               GraphEdge* edge = new GraphEdge(id);
-              edge->SetChildNode(*childNode);
-              edge->SetParentNode(*parentNode);
+              edge->SetChildNode(childNode->get());
+              edge->SetParentNode(parentNode->get());
               _edges.push_back(edge);
 
               // find all keywords for current node
@@ -234,7 +231,7 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename) {
     // search for nodes which have no incoming edges
     if ((*it)->GetNumberOfParents() == 0) {
       if (rootNode == nullptr) {
-        rootNode = *it;  // assign current node to root
+        rootNode = it->get();  // assign current node to root
       } else {
         std::cout << "ERROR : Multiple root nodes detected" << std::endl;
       }
@@ -277,6 +274,9 @@ void ChatLogic::SendMessageToUser(std::string message) {
 }
 
 wxBitmap* ChatLogic::GetImageFromChatbot() {
+  std::cout << "DEBUG: "
+            << "ChatLogic::GetImageFromChatbot()" << std::endl;
+  return _chatBot->GetImageHandle();
   std::cout << "DEBUG: "
             << "ChatLogic::GetImageFromChatbot()" << std::endl;
   return _chatBot->GetImageHandle();
