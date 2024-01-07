@@ -42,17 +42,8 @@ class ChatBot {
 
   // getters / setters
   void SetCurrentNode(GraphNode* node);
-  void SetRootNode(GraphNode* rootNode) {
-    std::cout << "DEBUG: "
-              << "ChatBot::SetRootNode(GraphNode *rootNode)" << std::endl;
-    _rootNode = rootNode;
-  }
-  void SetChatLogicHandle(ChatLogic* chatLogic) {
-    std::cout << "DEBUG: "
-              << "ChatBot::SetChatLogicHandle(ChatLogic *chatLogic)"
-              << std::endl;
-    _chatLogic = chatLogic;
-  }
+  void SetRootNode(GraphNode* rootNode) { _rootNode = rootNode; }
+  void SetChatLogicHandle(ChatLogic* chatLogic) { _chatLogic = chatLogic; }
   ChatLogic* GetChatLogicHandle() { return _chatLogic; }
   wxBitmap* GetImageHandle() { return _image; }
 

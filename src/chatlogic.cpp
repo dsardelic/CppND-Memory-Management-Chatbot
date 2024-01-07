@@ -15,8 +15,6 @@
 #include "graphnode.h"
 
 ChatLogic::ChatLogic() {
-  std::cout << "DEBUG: "
-            << "ChatLogic::ChatLogic()" << std::endl;
   //// STUDENT CODE
   ////
 
@@ -32,8 +30,6 @@ ChatLogic::ChatLogic() {
 }
 
 ChatLogic::~ChatLogic() {
-  std::cout << "DEBUG: "
-            << "ChatLogic::~ChatLogic()" << std::endl;
   //// STUDENT CODE
   ////
 
@@ -58,10 +54,6 @@ template <typename T>
 void ChatLogic::AddAllTokensToElement(
     std::string tokenID, tokenlist& tokens, T& element
 ) {
-  std::cout << "DEBUG: "
-            << "ChatLogic::AddAllTokensToElement(std::string tokenID, "
-               "tokenlist &tokens, T &element)"
-            << std::endl;
   // find all occurences for current node
   auto token = tokens.begin();
   while (true) {
@@ -81,9 +73,6 @@ void ChatLogic::AddAllTokensToElement(
 }
 
 void ChatLogic::LoadAnswerGraphFromFile(std::string filename) {
-  std::cout << "DEBUG: "
-            << "ChatLogic::LoadAnswerGraphFromFile(std::string filename)"
-            << std::endl;
   // load file with answer graph elements
   std::ifstream file(filename);
 
@@ -240,11 +229,6 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename) {
     }
   }
 
-  // add chatbot to graph root node
-  // _chatBot->SetRootNode(rootNode);
-  // rootNode->MoveChatbotHere(_chatBot);
-
-  // auto chatBot = std::make_unique<ChatBot>("../images/chatbot.png");
   auto chatBot = ChatBot("../images/chatbot.png");
   _chatBot = &chatBot;
   chatBot.SetChatLogicHandle(this);
@@ -256,37 +240,19 @@ void ChatLogic::LoadAnswerGraphFromFile(std::string filename) {
 }
 
 void ChatLogic::SetPanelDialogHandle(ChatBotPanelDialog* panelDialog) {
-  std::cout
-      << "DEBUG: "
-      << "ChatLogic::SetPanelDialogHandle(ChatBotPanelDialog *panelDialog)"
-      << std::endl;
   _panelDialog = panelDialog;
 }
 
-void ChatLogic::SetChatbotHandle(ChatBot* chatbot) {
-  std::cout << "DEBUG: "
-            << "ChatLogic::SetChatbotHandle(ChatBot *chatbot)" << std::endl;
-  _chatBot = chatbot;
-}
+void ChatLogic::SetChatbotHandle(ChatBot* chatbot) { _chatBot = chatbot; }
 
 void ChatLogic::SendMessageToChatbot(std::string message) {
-  std::cout << "DEBUG: "
-            << "ChatLogic::SendMessageToChatbot(std::string message)"
-            << std::endl;
   _chatBot->ReceiveMessageFromUser(message);
 }
 
 void ChatLogic::SendMessageToUser(std::string message) {
-  std::cout << "DEBUG: "
-            << "ChatLogic::SendMessageToUser(std::string message)" << std::endl;
   _panelDialog->PrintChatbotResponse(message);
 }
 
 wxBitmap* ChatLogic::GetImageFromChatbot() {
-  std::cout << "DEBUG: "
-            << "ChatLogic::GetImageFromChatbot()" << std::endl;
-  return _chatBot->GetImageHandle();
-  std::cout << "DEBUG: "
-            << "ChatLogic::GetImageFromChatbot()" << std::endl;
   return _chatBot->GetImageHandle();
 }

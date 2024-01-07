@@ -2,7 +2,7 @@
 
 #include <algorithm>
 #include <ctime>
-#include <iostream>
+#include <iostream>  // std::cout
 #include <random>
 
 #include "chatlogic.h"
@@ -11,8 +11,7 @@
 
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot() {
-  std::cout << "DEBUG: "
-            << "ChatBot::ChatBot()" << std::endl;
+  std::cout << "ChatBot Constructor (no parameters)" << std::endl;
   // invalidate data handles
   _image = nullptr;
   _chatLogic = nullptr;
@@ -21,16 +20,14 @@ ChatBot::ChatBot() {
 
 // constructor WITH memory allocation
 ChatBot::ChatBot(std::string filename) {
-  std::cout << "DEBUG: "
-            << "ChatBot::ChatBot(std::string filename)" << std::endl;
+  std::cout << "ChatBot Constructor (filename parameter)" << std::endl;
   _chatLogic = nullptr;
   _rootNode = nullptr;
   _image = new wxBitmap(filename, wxBITMAP_TYPE_PNG);
 }
 
 ChatBot::~ChatBot() {
-  std::cout << "DEBUG: "
-            << "ChatBot::~ChatBot()" << std::endl;
+  std::cout << "ChatBot Destructor" << std::endl;
   if (_image != NULL) {
     delete _image;
     _image = nullptr;
@@ -103,9 +100,6 @@ ChatBot& ChatBot::operator=(ChatBot&& rhs) {
 //// EOF STUDENT CODE
 
 void ChatBot::ReceiveMessageFromUser(std::string message) {
-  std::cout << "DEBUG: "
-            << "ChatBot::ReceiveMessageFromUser(std::string message)"
-            << std::endl;
   // loop over all edges and keywords and compute Levenshtein distance to query
   typedef std::pair<GraphEdge*, int> EdgeDist;
   std::vector<EdgeDist> levDists;  // format is <ptr,levDist>
@@ -138,8 +132,6 @@ void ChatBot::ReceiveMessageFromUser(std::string message) {
 }
 
 void ChatBot::SetCurrentNode(GraphNode* node) {
-  std::cout << "DEBUG: "
-            << "ChatBot::SetCurrentNode(GraphNode *node)" << std::endl;
   // update pointer to current node
   _currentNode = node;
 

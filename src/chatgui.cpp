@@ -22,8 +22,6 @@ std::string dataPath = "../";
 std::string imgBasePath = dataPath + "images/";
 
 bool ChatBotApp::OnInit() {
-  std::cout << "DEBUG: "
-            << "ChatBotApp::OnInit()" << std::endl;
   // create window with name and show it
   ChatBotFrame* chatBotFrame = new ChatBotFrame(wxT("Udacity ChatBot"));
   chatBotFrame->Show(true);
@@ -34,8 +32,6 @@ bool ChatBotApp::OnInit() {
 // wxWidgets FRAME
 ChatBotFrame::ChatBotFrame(const wxString& title)
     : wxFrame(NULL, wxID_ANY, title, wxDefaultPosition, wxSize(width, height)) {
-  std::cout << "DEBUG: "
-            << "ChatBotFrame::ChatBotFrame(const wxString &title)" << std::endl;
   // create panel with background image
   ChatBotFrameImagePanel* ctrlPanel = new ChatBotFrameImagePanel(this);
 
@@ -64,9 +60,6 @@ ChatBotFrame::ChatBotFrame(const wxString& title)
 }
 
 void ChatBotFrame::OnEnter(wxCommandEvent& WXUNUSED(event)) {
-  std::cout << "DEBUG: "
-            << "ChatBotFrame::OnEnter(wxCommandEvent &WXUNUSED(event))"
-            << std::endl;
   // retrieve text from text control
   wxString userText = _userTextCtrl->GetLineText(0);
 
@@ -87,11 +80,7 @@ EVT_PAINT(ChatBotFrameImagePanel::paintEvent)  // catch paint events
 END_EVENT_TABLE()
 
 ChatBotFrameImagePanel::ChatBotFrameImagePanel(wxFrame* parent)
-    : wxPanel(parent) {
-  std::cout << "DEBUG: "
-            << "ChatBotFrameImagePanel::ChatBotFrameImagePanel(wxFrame *parent)"
-            << std::endl;
-}
+    : wxPanel(parent) {}
 
 void ChatBotFrameImagePanel::paintEvent(wxPaintEvent& evt) {
   wxPaintDC dc(this);
@@ -124,11 +113,6 @@ END_EVENT_TABLE()
 
 ChatBotPanelDialog::ChatBotPanelDialog(wxWindow* parent, wxWindowID id)
     : wxScrolledWindow(parent, id) {
-  std::cout << "DEBUG: "
-            << "ChatBotPanelDialog::ChatBotPanelDialog(wxWindow *parent, "
-               "wxWindowID id)"
-            << std::endl;
-
   // sizer will take care of determining the needed scroll size
   _dialogSizer = new wxBoxSizer(wxVERTICAL);
   this->SetSizer(_dialogSizer);
@@ -154,8 +138,6 @@ ChatBotPanelDialog::ChatBotPanelDialog(wxWindow* parent, wxWindowID id)
 }
 
 ChatBotPanelDialog::~ChatBotPanelDialog() {
-  std::cout << "DEBUG: "
-            << "ChatBotPanelDialog::~ChatBotPanelDialog()" << std::endl;
   //// STUDENT CODE
   ////
 
@@ -166,10 +148,6 @@ ChatBotPanelDialog::~ChatBotPanelDialog() {
 }
 
 void ChatBotPanelDialog::AddDialogItem(wxString text, bool isFromUser) {
-  std::cout
-      << "DEBUG: "
-      << "ChatBotPanelDialog::AddDialogItem(wxString text, bool isFromUser)"
-      << std::endl;
   // add a single dialog element to the sizer
   ChatBotPanelDialogItem* item =
       new ChatBotPanelDialogItem(this, text, isFromUser);
@@ -191,9 +169,6 @@ void ChatBotPanelDialog::AddDialogItem(wxString text, bool isFromUser) {
 }
 
 void ChatBotPanelDialog::PrintChatbotResponse(std::string response) {
-  std::cout << "DEBUG: "
-            << "ChatBotPanelDialog::PrintChatbotResponse(std::string response)"
-            << std::endl;
   // convert string into wxString and add dialog element
   wxString botText(response.c_str(), wxConvUTF8);
   AddDialogItem(botText, false);
