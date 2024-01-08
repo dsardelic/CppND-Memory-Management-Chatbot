@@ -1,8 +1,8 @@
 #include "graphedge.h"
 
-#include <iostream>
+#include <string>  // std::string
 
-#include "graphnode.h"
+#include "graphnode.h"  // GraphNode
 
 GraphEdge::GraphEdge(int id) { _id = id; }
 

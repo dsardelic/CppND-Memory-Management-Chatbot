@@ -1,18 +1,15 @@
 #include "chatlogic.h"
 
-#include <algorithm>
-#include <fstream>
-#include <iostream>
-#include <iterator>
-#include <memory>  // std::make_unique
-#include <sstream>
-#include <tuple>
-#include <utility>  // std::move
-#include <vector>
+#include <algorithm>  // std::find_if
+#include <fstream>    // std::ifstream
+#include <memory>     // std::make_unique
+#include <string>     // std::string
+#include <utility>    // std::move
+#include <vector>     // std::vector
 
-#include "chatbot.h"
-#include "graphedge.h"
-#include "graphnode.h"
+#include "chatbot.h"    // ChatBot
+#include "graphedge.h"  // GraphEdge
+#include "graphnode.h"  // GraphNode
 
 ChatLogic::ChatLogic() {
   //// STUDENT CODE

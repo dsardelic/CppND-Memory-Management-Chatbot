@@ -1,9 +1,9 @@
 #ifndef CHATGUI_H_
 #define CHATGUI_H_
 
-#include <wx/wx.h>
+#include <wx/wx.h>  // wxWindow, wxFrame, ...
 
-#include <memory>
+#include <memory>  // std::unique_ptr
 
 class ChatLogic;  // forward declaration
 

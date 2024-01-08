@@ -1,10 +1,9 @@
 #ifndef CHATBOT_H_
 #define CHATBOT_H_
 
-#include <wx/bitmap.h>
+#include <wx/bitmap.h>  // wxBitmap
 
-#include <iostream>
-#include <string>
+#include <string>  // std::string
 
 class GraphNode;  // forward declaration
 class ChatLogic;  // forward declaration

@@ -1,13 +1,16 @@
 #include "chatbot.h"
 
-#include <algorithm>
-#include <ctime>
-#include <iostream>  // std::cout
-#include <random>
+#include <wx/bitmap.h>  // wxBitmap
 
-#include "chatlogic.h"
-#include "graphedge.h"
-#include "graphnode.h"
+#include <algorithm>  // std::transform
+#include <ctime>      // std::time
+#include <iostream>   // std::cout
+#include <random>     // std::mt19937
+#include <string>     // std::string
+
+#include "chatlogic.h"  // ChatLogic
+#include "graphedge.h"  // GraphEdge
+#include "graphnode.h"  // GraphNode
 
 // constructor WITHOUT memory allocation
 ChatBot::ChatBot() {
@@ -67,6 +70,9 @@ ChatBot::ChatBot(ChatBot&& rhs) {
 ChatBot& ChatBot::operator=(const ChatBot& rhs) {
   std::cout << "ChatBot Copy Assignment" << std::endl;
 
+  if (&rhs == this) {
+    return *this;
+  }
   delete _image;
   if (rhs._image) {
     _image = new wxBitmap(*rhs._image);
@@ -82,6 +88,9 @@ ChatBot& ChatBot::operator=(const ChatBot& rhs) {
 ChatBot& ChatBot::operator=(ChatBot&& rhs) {
   std::cout << "ChatBot Move Assignment" << std::endl;
 
+  if (&rhs == this) {
+    return *this;
+  }
   delete _image;
   _image = rhs._image;
   _currentNode = rhs._currentNode;

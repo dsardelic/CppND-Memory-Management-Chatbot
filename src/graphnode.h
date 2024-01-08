@@ -2,10 +2,10 @@
 #define GRAPHNODE_H_
 
 #include <memory>  // std::unique_ptr
-#include <string>
-#include <vector>
+#include <string>  // std::string
+#include <vector>  // std::vector
 
-#include "chatbot.h"
+#include "chatbot.h"  // ChatBot
 
 // forward declarations
 class GraphEdge;

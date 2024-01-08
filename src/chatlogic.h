@@ -1,11 +1,11 @@
 #ifndef CHATLOGIC_H_
 #define CHATLOGIC_H_
 
-#include <memory>
-#include <string>
-#include <vector>
+#include <memory>  //std::unique_ptr
+#include <string>  //std::string
+#include <vector>  //std::vector
 
-#include "chatgui.h"
+#include "chatgui.h"  // ChatBotPanelDialog
 
 // forward declarations
 class ChatBot;

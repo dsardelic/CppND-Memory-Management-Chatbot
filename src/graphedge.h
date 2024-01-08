@@ -1,8 +1,8 @@
 #ifndef GRAPHEDGE_H_
 #define GRAPHEDGE_H_
 
-#include <string>
-#include <vector>
+#include <string>  //std::string
+#include <vector>  //std::vector
 
 class GraphNode;  // forward declaration
 

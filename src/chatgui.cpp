@@ -1,15 +1,11 @@
 #include "chatgui.h"
 
-#include <wx/colour.h>
-#include <wx/filename.h>
-#include <wx/image.h>
+#include <wx/wx.h>  // wxWindow, wxFrame, ...
 
-#include <iostream>
 #include <memory>  // std::make_unique
-#include <string>
+#include <string>  // std::string
 
-#include "chatbot.h"
-#include "chatlogic.h"
+#include "chatlogic.h"  // ChatLogic
 
 // size of chatbot window
 const int width = 414;

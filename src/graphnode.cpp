@@ -3,7 +3,7 @@
 #include <memory>  // std::unique_ptr
 #include <string>  // std::string
 
-#include "graphedge.h"
+#include "graphedge.h"  // GraphEdge
 
 GraphNode::GraphNode(int id) { _id = id; }
 
